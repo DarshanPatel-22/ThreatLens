@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    container_name: soc-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    networks:
+      - soc-net
+
+  backend:
+    build: ./backend
+    container_name: soc-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - ES_HOST=http://elasticsearch:9200
+      - VT_API_KEY=${VT_API_KEY}
+      - SLACK_WEBHOOK=${SLACK_WEBHOOK}
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - soc-net
+
+  frontend:
+    build: ./frontend
+    container_name: soc-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - soc-net
+
+networks:
+  soc-net:
+    driver: bridge

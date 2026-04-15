@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your custom styles below */
+body {
+  background: #0b1220;
+  color: white;
+}
+
+@keyframes pulse-red {
+  0% {
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+  100% {
+    border-color: rgba(239, 68, 68, 1);
+  }
+}
+.bg-red-900\/40 {
+  animation: pulse-red 1s infinite alternate;
+}

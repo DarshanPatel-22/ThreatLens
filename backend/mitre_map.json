@@ -1,0 +1,7 @@
+{
+  "failed_login": "T1110",
+  "port_scan": "T1046",
+  "malware_detected": "T1204",
+  "login_success": "T1078",
+  "privilege_escalation": "T1068"
+}
